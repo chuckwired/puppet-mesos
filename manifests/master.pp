@@ -175,17 +175,6 @@ class mesos::master(
   }
 
   # Install mesos-master service
-  mesos::service { 'master':
-    enable         => $enable,
-    force_provider => $provider,
-    manage         => $manage_service,
-    subscribe      => File[$conf_file],
-  }
+  # COMPLETELY DEPRECATED: Include mesos::setup instead to run the service
 
-  if (!defined(Class['mesos::slave']) and $single_role) {
-    mesos::service { 'slave':
-      enable => false,
-      manage => $manage_service,
-    }
-  }
 }

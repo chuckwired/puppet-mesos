@@ -252,17 +252,6 @@ class mesos::slave (
   }
 
   # Install mesos-slave service
-  mesos::service { 'slave':
-    enable         => $enable,
-    force_provider => $provider,
-    manage         => $manage_service,
-    subscribe      => File[$conf_file],
-  }
+  # SUPER DEPRECATED: Include mesos::setup instead
 
-  if (!defined(Class['mesos::master']) and $single_role) {
-    mesos::service { 'master':
-      enable => false,
-      manage => $manage_service,
-    }
-  }
 }
