@@ -15,13 +15,14 @@
 # required by 'mesos::master' and 'mesos::slave'
 #
 class mesos::setup(
-  $slave                = undef,
-  $slave_force_provider = $mesos::slave::force_provider,
-  $slave_manage_service = $mesos::slave::manage_service,
-  $slave_conf_file      = $mesos::slave::conf_file,
-  $master               = undef,
+  $slave                 = undef,
+  $slave_force_provider  = $mesos::slave::force_provider,
+  $slave_manage_service  = $mesos::slave::manage_service,
+  $slave_conf_file       = $mesos::slave::conf_file,
+  $master                = undef,
   $master_force_provider = $mesos::master::force_provider,
   $master_manage_service = $mesos::master::manage_service,
+  $master_conf_dir       = $mesos::master::conf_dir,
   $master_conf_file      = $mesos::master::conf_file,
 ) {
 
@@ -42,7 +43,7 @@ class mesos::setup(
     enable         => $master,
     force_provider => $master_force_provider,
     manage         => $master_manage_service,
-    subscribe      => File[$master_conf_file],
+    subscribe      => [File[$master_conf_file], File[$master_conf_dir] ],
   }
 
 
