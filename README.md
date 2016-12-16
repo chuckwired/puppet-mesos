@@ -13,12 +13,15 @@ class{'mesos':
   zookeeper => [ '192.168.1.1', '192.168.1.2', '192.168.1.3'],
 }
 
-class{'mesos::master':
-  work_dir => '/var/lib/mesos',
-  options => {
-    quorum   => 2
-  }
-}
+include mesos::setup
+```
+And your hieradata setup:  
+```yaml
+mesos::master::work_dir: '/var/lib/mesos'
+mesos::master::options:
+    quorum: 2
+
+mesos::setup::master: true
 ```
 From ZooKeeper array an URI is created `zk://192.168.1.1:2181,192.168.1.2:2181,192.168.1.3:2181/mesos`. In order to customize this use either `server:port` or see `zk_path` and `zk_default_port` variable.
 
